@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<!-- Load the properties file -->
+	<context:property-placeholder
+		location="classpath:application.properties" />
+
+	<bean id="email" class="com.borntocode.service.EmailService" />
+	<bean id="sms" class="com.borntocode.service.SMSService" />
+
+	<bean id="emailApplication"
+		class="com.borntocode.consumer.MyApplication">
+		<property name="service" ref="email" />
+	</bean>
+
+	<bean id="smsApplication"
+		class="com.borntocode.consumer.MyApplication">
+		<property name="service" ref="sms" />
+	</bean>
+
+	<bean id="myApplication"
+		class="com.borntocode.consumer.MyApplication"
+		init-method="startupMessages" destroy-method="cleanupMessages">
+		<property name="service" ref="email" />
+		<property name="message" value="${user.message}" />
+		<property name="receiver" value="${user.receiver}" />
+	</bean>
+
+
+
+</beans>

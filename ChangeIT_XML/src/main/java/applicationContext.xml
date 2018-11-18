@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<bean id="email" class="com.borntocode.service.EmailService" />
+	<bean id="sms" class="com.borntocode.service.SMSService" />
+
+	<bean id="emailApplication" class="com.borntocode.consumer.MyApplication">
+		<constructor-arg name="service" ref="email" />
+	</bean>
+	
+	<bean id="smsApplication" class="com.borntocode.consumer.MyApplication">
+		<constructor-arg name="service" ref="sms" />
+	</bean>
+
+</beans>
